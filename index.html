@@ -1,0 +1,40 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contagem para o Chile 💕</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>Contagem para nossa aventura no Chile 💕</h1>
+  <div id="countdown"></div>
+
+  <div class="gallery">
+    <img src="foto1.jpg" alt="Foto 1">
+    <img src="foto2.jpg" alt="Foto 2">
+    <img src="foto3.jpg" alt="Foto 3">
+    <img src="foto4.jpg" alt="Foto 4">
+    <img src="foto5.jpg" alt="Foto 5">
+    <img src="foto6.jpg" alt="Foto 6">
+  </div>
+
+  <footer>Com amor, para você 💖</footer>
+
+  <script src="script.js"></script>
+
+  <!-- A música começará sem som e será ativada no primeiro clique -->
+  <audio id="background-music" autoplay loop muted>
+    <source src="musica.mp3" type="audio/mpeg">
+    Seu navegador não suporta o elemento de áudio.
+  </audio>
+  <script>
+    // Ativa som quando o usuário interagir com a página
+    document.body.addEventListener('click', () => {
+      document.getElementById('background-music').muted = false;
+    }, { once: true }); // O evento será disparado apenas uma vez
+  </script>
+</body>
+</html>

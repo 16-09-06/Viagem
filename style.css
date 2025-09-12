@@ -1,0 +1,80 @@
+/* style.css */
+body {
+  background-color: #f0e4f7; /* Um lilás bem clarinho */
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  padding: 20px;
+  overflow-x: hidden; /* Evita barra de rolagem horizontal por causa dos corações */
+}
+
+h1 {
+  font-family: 'Pacifico', cursive;
+  color: #d63384; /* Um tom de rosa */
+  font-size: 2.5em;
+}
+
+#countdown {
+  font-size: 2em;
+  font-weight: 300;
+  margin: 20px 0;
+  color: #5a3e6b; /* Um roxo mais escuro */
+}
+
+/* Estilos da Galeria/Carrossel */
+.gallery {
+  margin: 30px auto;
+  width: 90%;
+  max-width: 600px;
+  height: 400px; /* Altura fixa para o contêiner */
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Garante que a imagem inteira apareça, sem cortar */
+  background-color: #000; /* Fundo preto para as barras, se a proporção for diferente */
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.gallery img.active {
+  opacity: 1;
+}
+
+/* Estilos dos Corações */
+.heart {
+  position: fixed;
+  top: -10vh;
+  animation: fall 5s linear forwards;
+  pointer-events: none; /* Evita que os corações bloqueiem cliques */
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+  }
+}
+
+footer {
+  margin-top: 40px;
+  font-style: italic;
+  color: #666;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2em;
+  }
+  .gallery {
+    height: 300px;
+  }
+}
