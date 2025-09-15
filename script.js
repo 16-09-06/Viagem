@@ -1,53 +1,64 @@
+// script.js
+
+// --- LÓGICA DO CRONÔMETRO ---
 const countdownElement = document.getElementById("countdown");
-const flightDate = new Date("2025-09-19T00:00:00").getTime();
+const tripDate = new Date("2025-09-19T00:00:00").getTime(); // Defina a data e hora da viagem
 
-// Contador regressivo
-function updateCountdown() {
+const countdownInterval = setInterval(() => {
   const now = new Date().getTime();
-  const distance = flightDate - now;
+  const distance = tripDate - now;
 
-  if (distance <= 0) {
-    countdownElement.textContent = "Chegou o dia! 🎉💖";
-    return;
+  // Se a contagem regressiva terminou
+  if (distance < 1000) { // Usamos < 1000ms para pegar o último segundo
+    clearInterval(countdownInterval);
+    countdownElement.innerHTML = `
+      <div>0<span>dias</span></div>
+      <div>0<span>horas</span></div>
+      <div>0<span>minutos</span></div>
+      <div>0<span>segundos</span></div>
+    `;
+    // Aguarda um segundo para mostrar o zero antes de exibir a mensagem final
+    setTimeout(() => {
+      countdownElement.innerHTML = "<h2>Chegou o grande dia! Nossa aventura começa agora. Te amo! ❤️✈️</h2>";
+    }, 1000);
+  } else {
+    // Cálculos de tempo para dias, horas, minutos e segundos
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Exibe o resultado no elemento com id="countdown"
+    countdownElement.innerHTML = `
+      <div>${days}<span>dias</span></div>
+      <div>${hours}<span>horas</span></div>
+      <div>${minutes}<span>minutos</span></div>
+      <div>${seconds}<span>segundos</span></div>
+    `;
   }
+}, 1000);
 
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+// --- LÓGICA DA GALERIA (SLIDESHOW) ---
+const galleryImages = document.querySelectorAll('.gallery img');
+let currentImageIndex = 0;
 
-  countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+function startSlideshow() {
+  if (galleryImages.length === 0) return;
+
+  // Mostra a primeira imagem imediatamente
+  galleryImages[currentImageIndex].classList.add('active');
+
+  setInterval(() => {
+    // Remove a classe 'active' da imagem atual
+    galleryImages[currentImageIndex].classList.remove('active');
+
+    // Calcula o índice da próxima imagem
+    currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+
+    // Adiciona a classe 'active' para a próxima imagem
+    galleryImages[currentImageIndex].classList.add('active');
+  }, 4000); // Muda de imagem a cada 4 segundos
 }
 
-setInterval(updateCountdown, 1000);
-updateCountdown();
-
-// Corações caindo
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.textContent = "💖";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = Math.random() * 20 + 10 + "px";
-  document.body.appendChild(heart);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 5000);
-}
-
-setInterval(createHeart, 500);
-
-// Carrossel automático de fotos
-const images = document.querySelectorAll(".gallery img");
-let currentIndex = 0;
-
-function showNextImage() {
-  images.forEach((img, i) => img.classList.remove("active"));
-  images[currentIndex].classList.add("active");
-  currentIndex = (currentIndex + 1) % images.length;
-}
-
-// Inicializa carrossel
-showNextImage();
-setInterval(showNextImage, 3000);
+// Inicia o slideshow quando a página carrega
+startSlideshow();
